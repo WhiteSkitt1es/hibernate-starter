@@ -1,10 +1,7 @@
 package com.artemyev;
 
 import com.artemyev.converter.BirthdayConverter;
-import com.artemyev.entity.Birthday;
-import com.artemyev.entity.PersonalInfo;
-import com.artemyev.entity.Role;
-import com.artemyev.entity.Users;
+import com.artemyev.entity.*;
 //import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import com.artemyev.util.HibernateUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +24,10 @@ public class HibernateRunner {
 
     public static void main(String[] args) {
 
+        Company company = Company.builder()
+                .name("Google")
+                .build();
+
         Users users = Users.builder()
                 .username("pavel@gmail.com")
                 .personalInfo(PersonalInfo.builder()
@@ -35,38 +36,21 @@ public class HibernateRunner {
                         .birthday(new Birthday(LocalDate.of(1997, 1, 1)))
                         .build())
                 .role(Role.ADMIN)
+                .company(company)
                 .build();
-        log.info("User entity is in transient state, object: {}", users);
+
 
         try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory()) {
             Session session1 = sessionFactory.openSession();
             try (session1) {
                 Transaction transaction = session1.beginTransaction();
-                log.trace("Transaction is created, {}", transaction);
 
-                session1.merge(users);
-                log.trace("User is in persistent state: {}, session {}", users, session1);
+                session1.persist(company);
+                session1.persist(users);
 
                 session1.getTransaction().commit();
             }
-            log.warn("User is in detached state: {}, session is closed {}", users, session1);
-//            try (Session session2 = sessionFactory.openSession()) {
-//                session2.beginTransaction();
-//
-////                session2.remove(users);
-////                refresh/merge
-//                session2.refresh(users); //read the entity data again
-//
-//                session2.merge(users); //same as refresh only in reverse
-//
-//                session2.getTransaction().commit();
-//            }
-        } catch (Exception exception) {
-            log.error("Exception occurred", exception);
-            throw exception;
         }
-
-
         //-------------------------------------------------------------------------------------------------
         /**
          *         Configuration configuration = new Configuration();
@@ -105,6 +89,47 @@ public class HibernateRunner {
          *
          *             session.getTransaction().commit();
          */
-
+        //---------------------------------------------------------------------------------------------
+        /**
+         *  Users users = Users.builder()
+         *                 .username("pavel@gmail.com")
+         *                 .personalInfo(PersonalInfo.builder()
+         *                         .firstname("Pavel")
+         *                         .lastname("Artemyev")
+         *                         .birthday(new Birthday(LocalDate.of(1997, 1, 1)))
+         *                         .build())
+         *                 .role(Role.ADMIN)
+         *                 .build();
+         *
+         *         log.info("User entity is in transient state, object: {}", users);
+         *
+         *         try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory()) {
+         *             Session session1 = sessionFactory.openSession();
+         *             try (session1) {
+         *                 Transaction transaction = session1.beginTransaction();
+         *                 log.trace("Transaction is created, {}", transaction);
+         *
+         *                 session1.merge(users);
+         *                 log.trace("User is in persistent state: {}, session {}", users, session1);
+         *
+         *                 session1.getTransaction().commit();
+         *             }
+         *             log.warn("User is in detached state: {}, session is closed {}", users, session1);
+         *             try (Session session2 = sessionFactory.openSession()) {
+         *                 session2.beginTransaction();
+         *
+         *                session2.remove(users);
+         *                 refresh/merge
+         *                 session2.refresh(users); //read the entity data again
+         *
+         *                 session2.merge(users); //same as refresh only in reverse
+         *
+         *                 session2.getTransaction().commit();
+         *             }
+         *         } catch (Exception exception) {
+         *             log.error("Exception occurred", exception);
+         *             throw exception;
+         *         }
+         */
     }
 }

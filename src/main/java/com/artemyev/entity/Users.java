@@ -1,18 +1,17 @@
 package com.artemyev.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Type;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(of = "username")
+@ToString(exclude = "company")
 @Builder
 @Entity
-@Table(name = "users", schema = "public")
+//@Table(name = "users", schema = "public")
 public class Users {
 
     @Id
@@ -34,6 +33,10 @@ public class Users {
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @ManyToOne(fetch = FetchType.EAGER /* cascade = {CascadeType.ALL} */)
+    @JoinColumn(name = "company_id")
+    private Company company;
 
 //    @Column(name = "info")
 //    @Type(type = "com.vladmihalcea.hibernate.type.json.JsonBinaryType")

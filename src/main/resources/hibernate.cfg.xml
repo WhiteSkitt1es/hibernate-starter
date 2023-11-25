@@ -12,6 +12,7 @@
     <property name="show_sql">true</property>
     <property name="format_sql">true</property>
 
+    <mapping class="com.artemyev.entity.Company"/>
     <mapping class="com.artemyev.entity.Users"/>
     <!-- DB schema will be updated if needed -->
     <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->

@@ -3,7 +3,7 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.49">
     <root id="1">
       <DateStyle>mdy</DateStyle>
-      <IntrospectionStateNumber>804</IntrospectionStateNumber>
+      <IntrospectionStateNumber>813</IntrospectionStateNumber>
       <ServerVersion>16.1</ServerVersion>
       <StartupTime>1700742997</StartupTime>
       <TimeZones>true ACDT
@@ -1400,7 +1400,7 @@ false posixrules
 13212||10|C|G
 13212||-9223372036854775808|U|G
 13212||10|U|G</Grants>
-      <IntrospectionStateNumber>804</IntrospectionStateNumber>
+      <IntrospectionStateNumber>813</IntrospectionStateNumber>
       <ObjectId>5</ObjectId>
       <OwnerName>postgres</OwnerName>
     </database>
@@ -4819,98 +4819,175 @@ false posixrules
     <schema id="263" parent="2" name="public">
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <IntrospectionStateNumber>804</IntrospectionStateNumber>
-      <IntrospectionTimestamp>2023-11-24.11:45:04.666</IntrospectionTimestamp>
-      <LocalIntrospectionTimestamp>2023-11-24.08:45:04</LocalIntrospectionTimestamp>
+      <IntrospectionStateNumber>813</IntrospectionStateNumber>
+      <IntrospectionTimestamp>2023-11-24.13:11:44.795</IntrospectionTimestamp>
+      <LocalIntrospectionTimestamp>2023-11-24.10:11:45</LocalIntrospectionTimestamp>
       <ObjectId>2200</ObjectId>
       <StateNumber>524</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>
     </schema>
-    <sequence id="264" parent="263" name="users_id_seq">
-      <DasType>bigint|0s</DasType>
-      <ObjectId>16442</ObjectId>
+    <sequence id="264" parent="263" name="company_id_seq">
+      <DasType>integer|0s</DasType>
+      <ObjectId>16460</ObjectId>
       <SequenceIdentity>1(1)</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>803</StateNumber>
+      <StateNumber>810</StateNumber>
       <OwnerName>postgres</OwnerName>
     </sequence>
-    <table id="265" parent="263" name="users">
-      <ObjectId>16443</ObjectId>
-      <StateNumber>803</StateNumber>
+    <sequence id="265" parent="263" name="users_id_seq">
+      <DasType>bigint|0s</DasType>
+      <ObjectId>16469</ObjectId>
+      <SequenceIdentity>1(1)</SequenceIdentity>
+      <StartValue>1</StartValue>
+      <StateNumber>812</StateNumber>
+      <OwnerName>postgres</OwnerName>
+    </sequence>
+    <table id="266" parent="263" name="company">
+      <ObjectId>16461</ObjectId>
+      <StateNumber>812</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <column id="266" parent="265" name="id">
-      <DasType>bigint|0s</DasType>
-      <DefaultExpression>nextval(&apos;users_id_seq&apos;::regclass)</DefaultExpression>
+    <table id="267" parent="263" name="users">
+      <ObjectId>16470</ObjectId>
+      <StateNumber>812</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>postgres</OwnerName>
+    </table>
+    <column id="268" parent="266" name="id">
+      <DasType>integer|0s</DasType>
+      <DefaultExpression>nextval(&apos;company_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>803</StateNumber>
-      <SequenceId>16442</SequenceId>
-      <TypeId>20</TypeId>
+      <StateNumber>810</StateNumber>
+      <SequenceId>16460</SequenceId>
+      <TypeId>23</TypeId>
     </column>
-    <column id="267" parent="265" name="username">
-      <DasType>varchar(128)|0s</DasType>
+    <column id="269" parent="266" name="name">
+      <DasType>varchar(64)|0s</DasType>
+      <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>803</StateNumber>
+      <StateNumber>810</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="268" parent="265" name="firstname">
-      <DasType>varchar(128)|0s</DasType>
-      <Position>3</Position>
-      <StateNumber>803</StateNumber>
-      <TypeId>1043</TypeId>
-    </column>
-    <column id="269" parent="265" name="lastname">
-      <DasType>varchar(128)|0s</DasType>
-      <Position>4</Position>
-      <StateNumber>803</StateNumber>
-      <TypeId>1043</TypeId>
-    </column>
-    <column id="270" parent="265" name="birth_date">
-      <DasType>date|0s</DasType>
-      <Position>5</Position>
-      <StateNumber>803</StateNumber>
-      <TypeId>1082</TypeId>
-    </column>
-    <column id="271" parent="265" name="role">
-      <DasType>varchar(32)|0s</DasType>
-      <Position>6</Position>
-      <StateNumber>803</StateNumber>
-      <TypeId>1043</TypeId>
-    </column>
-    <index id="272" parent="265" name="users_pkey">
+    <index id="270" parent="266" name="company_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16447</ObjectId>
+      <ObjectId>16465</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>803</StateNumber>
+      <StateNumber>810</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="273" parent="265" name="users_username_key">
-      <ColNames>username</ColNames>
+    <index id="271" parent="266" name="company_name_key">
+      <ColNames>name</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16449</ObjectId>
-      <StateNumber>803</StateNumber>
+      <ObjectId>16467</ObjectId>
+      <StateNumber>810</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
       <CollationNames>default</CollationNames>
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="274" parent="265" name="users_pkey">
+    <key id="272" parent="266" name="company_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16448</ObjectId>
+      <ObjectId>16466</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>803</StateNumber>
-      <UnderlyingIndexId>16447</UnderlyingIndexId>
+      <StateNumber>810</StateNumber>
+      <UnderlyingIndexId>16465</UnderlyingIndexId>
     </key>
-    <key id="275" parent="265" name="users_username_key">
+    <key id="273" parent="266" name="company_name_key">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16450</ObjectId>
-      <StateNumber>803</StateNumber>
-      <UnderlyingIndexId>16449</UnderlyingIndexId>
+      <ObjectId>16468</ObjectId>
+      <StateNumber>810</StateNumber>
+      <UnderlyingIndexId>16467</UnderlyingIndexId>
+    </key>
+    <column id="274" parent="267" name="id">
+      <DasType>bigint|0s</DasType>
+      <DefaultExpression>nextval(&apos;users_id_seq&apos;::regclass)</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>812</StateNumber>
+      <SequenceId>16469</SequenceId>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="275" parent="267" name="username">
+      <DasType>varchar(128)|0s</DasType>
+      <Position>2</Position>
+      <StateNumber>812</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="276" parent="267" name="firstname">
+      <DasType>varchar(128)|0s</DasType>
+      <Position>3</Position>
+      <StateNumber>812</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="277" parent="267" name="lastname">
+      <DasType>varchar(128)|0s</DasType>
+      <Position>4</Position>
+      <StateNumber>812</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="278" parent="267" name="birth_date">
+      <DasType>date|0s</DasType>
+      <Position>5</Position>
+      <StateNumber>812</StateNumber>
+      <TypeId>1082</TypeId>
+    </column>
+    <column id="279" parent="267" name="role">
+      <DasType>varchar(32)|0s</DasType>
+      <Position>6</Position>
+      <StateNumber>812</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="280" parent="267" name="company_id">
+      <DasType>integer|0s</DasType>
+      <Position>7</Position>
+      <StateNumber>812</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <foreign-key id="281" parent="267" name="users_company_id_fkey">
+      <ColNames>company_id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>16478</ObjectId>
+      <StateNumber>812</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>16461</RefTableId>
+    </foreign-key>
+    <index id="282" parent="267" name="users_pkey">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>16474</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>812</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <index id="283" parent="267" name="users_username_key">
+      <ColNames>username</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>16476</ObjectId>
+      <StateNumber>812</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+      <CollationNames>default</CollationNames>
+      <CollationIds>100</CollationIds>
+      <CollationParentNames>pg_catalog</CollationParentNames>
+    </index>
+    <key id="284" parent="267" name="users_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>16475</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>812</StateNumber>
+      <UnderlyingIndexId>16474</UnderlyingIndexId>
+    </key>
+    <key id="285" parent="267" name="users_username_key">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>16477</ObjectId>
+      <StateNumber>812</StateNumber>
+      <UnderlyingIndexId>16476</UnderlyingIndexId>
     </key>
   </database-model>
 </dataSource>
