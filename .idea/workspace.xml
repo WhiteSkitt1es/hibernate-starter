@@ -5,14 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="99619586-4583-495f-8562-0f214b5fa15a" name="Changes" comment="Hibernate studied">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/artemyev/entity/Company.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/artemyev/CompanyProxy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/artemyev/ProxyTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/console.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/artemyev/entity/Chat.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/artemyev/entity/LocaleInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/artemyev/entity/Profile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/artemyev/entity/UsersChat.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/9473e328-ed82-4b86-ad76-3780959f08a6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9473e328-ed82-4b86-ad76-3780959f08a6.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/9473e328-ed82-4b86-ad76-3780959f08a6/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9473e328-ed82-4b86-ad76-3780959f08a6/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/artemyev/HibernateRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/artemyev/HibernateRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/artemyev/entity/Users.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/artemyev/entity/Users.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/artemyev/entity/Company.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/artemyev/entity/Company.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/artemyev/entity/Users.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/artemyev/entity/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/artemyev/util/HibernateUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/artemyev/util/HibernateUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/artemyev/HibernateRunnerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/artemyev/HibernateRunnerTest.java" afterDir="false" />
@@ -98,31 +102,7 @@
       <recent name="com.artemyev" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.HibernateRunnerTest.checkOrhanRemoval">
-    <configuration name="HibernateRunnerTest.addUserToNewCompany" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;com.artemyev.HibernateRunnerTest.addUserToNewCompany&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Gradle.HibernateRunnerTest.getOrderUsers">
     <configuration name="HibernateRunnerTest.checkLazyInitialization" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -137,6 +117,54 @@
             <option value=":test" />
             <option value="--tests" />
             <option value="&quot;com.artemyev.HibernateRunnerTest.checkLazyInitialization&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="HibernateRunnerTest.checkManyToMany" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.artemyev.HibernateRunnerTest.checkManyToMany&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="HibernateRunnerTest.checkOneToOne" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.artemyev.HibernateRunnerTest.checkOneToOne&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -171,7 +199,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="HibernateRunnerTest.deleteCompany" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="HibernateRunnerTest.getOrderUsers" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -184,31 +212,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.artemyev.HibernateRunnerTest.deleteCompany&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="HibernateRunnerTest.oneToMany" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;com.artemyev.HibernateRunnerTest.oneToMany&quot;" />
+            <option value="&quot;com.artemyev.HibernateRunnerTest.getOrderUsers&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -221,11 +225,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.HibernateRunnerTest.getOrderUsers" />
+        <item itemvalue="Gradle.HibernateRunnerTest.checkManyToMany" />
+        <item itemvalue="Gradle.HibernateRunnerTest.checkOneToOne" />
         <item itemvalue="Gradle.HibernateRunnerTest.checkOrhanRemoval" />
         <item itemvalue="Gradle.HibernateRunnerTest.checkLazyInitialization" />
-        <item itemvalue="Gradle.HibernateRunnerTest.oneToMany" />
-        <item itemvalue="Gradle.HibernateRunnerTest.deleteCompany" />
-        <item itemvalue="Gradle.HibernateRunnerTest.addUserToNewCompany" />
       </list>
     </recent_temporary>
   </component>
@@ -240,7 +244,8 @@
       <workItem from="1700564369898" duration="2451000" />
       <workItem from="1700567225942" duration="7394000" />
       <workItem from="1700730110918" duration="21728000" />
-      <workItem from="1700820417231" duration="10758000" />
+      <workItem from="1700820417231" duration="11468000" />
+      <workItem from="1700917770188" duration="11693000" />
     </task>
     <task id="LOCAL-00001" summary="Hibernate studied">
       <option name="closed" value="true" />
@@ -250,7 +255,15 @@
       <option name="project" value="LOCAL" />
       <updated>1700816137050</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Hibernate studied">
+      <option name="closed" value="true" />
+      <created>1700913591171</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1700913591171</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -259,16 +272,5 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Hibernate studied" />
     <option name="LAST_COMMIT_MESSAGE" value="Hibernate studied" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/artemyev/HibernateRunnerTest.java</url>
-          <line>128</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

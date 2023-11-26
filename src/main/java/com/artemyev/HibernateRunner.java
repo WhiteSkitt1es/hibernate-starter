@@ -1,6 +1,5 @@
 package com.artemyev;
 
-import com.artemyev.converter.BirthdayConverter;
 import com.artemyev.entity.*;
 //import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import com.artemyev.util.HibernateUtil;
@@ -8,13 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy;
-import org.hibernate.cfg.Configuration;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.time.LocalDate;
 
 @Slf4j
@@ -28,7 +21,7 @@ public class HibernateRunner {
                 .name("Google")
                 .build();
 
-        Users users = Users.builder()
+        User user = User.builder()
                 .username("pavel@gmail.com")
                 .personalInfo(PersonalInfo.builder()
                         .firstname("Pavel")
@@ -46,7 +39,7 @@ public class HibernateRunner {
                 Transaction transaction = session1.beginTransaction();
 
                 session1.persist(company);
-                session1.persist(users);
+                session1.persist(user);
 
                 session1.getTransaction().commit();
             }

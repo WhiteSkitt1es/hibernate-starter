@@ -13,7 +13,10 @@
     <property name="format_sql">true</property>
 
     <mapping class="com.artemyev.entity.Company"/>
-    <mapping class="com.artemyev.entity.Users"/>
+    <mapping class="com.artemyev.entity.User"/>
+    <mapping class="com.artemyev.entity.Profile"/>
+    <mapping class="com.artemyev.entity.Chat"/>
+    <mapping class="com.artemyev.entity.UsersChat"/>
     <!-- DB schema will be updated if needed -->
     <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
   </session-factory>

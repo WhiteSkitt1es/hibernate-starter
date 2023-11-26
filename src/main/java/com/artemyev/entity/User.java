@@ -2,17 +2,19 @@ package com.artemyev.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.Type;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "username")
-@ToString(exclude = "company")
+@ToString(exclude = {"company", "profile", "usersChats"})
 @Builder
 @Entity
-//@Table(name = "users", schema = "public")
-public class Users {
+@Table(name = "users", schema = "public")
+public class User implements Comparable<User>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,6 +39,37 @@ public class Users {
     @ManyToOne(fetch = FetchType.EAGER /* cascade = {CascadeType.ALL} */)
     @JoinColumn(name = "company_id")
     private Company company;
+
+    @OneToOne(
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            optional = false
+    )
+    private Profile profile;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "user")
+    private List<UsersChat> usersChats = new ArrayList<>();
+
+    @Override
+    public int compareTo(User o) {
+        return username.compareTo(o.username);
+    }
+
+//    @Builder.Default
+//    @ManyToMany
+//    @JoinTable(
+//            name = "users_chat",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "chat_id")
+//    )
+//    private List<Chat> chats = new ArrayList<>();
+//
+//    public void addChat (Chat chat) {
+//        chats.add(chat);
+//        chat.getUsers().add(this);
+//    }
 
 //    @Column(name = "info")
 //    @Type(type = "com.vladmihalcea.hibernate.type.json.JsonBinaryType")

@@ -18,6 +18,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Optional;
@@ -25,6 +26,91 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 class HibernateRunnerTest {
+
+    @Test
+    void getOrderUsers() {
+        try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
+             Session session = sessionFactory.openSession()) {
+
+            session.beginTransaction();
+
+            Company company = session.get(Company.class, 3L);
+            company.getUsers().forEach(System.out::println);
+
+            session.getTransaction().commit();
+        }
+    }
+    @Test
+    void localeInfo() {
+        try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
+             Session session = sessionFactory.openSession()) {
+
+            session.beginTransaction();
+
+            Company company = session.get(Company.class, 3L);
+            company.getLocales().add(LocaleInfo.of("ru", "Описание на русском"));
+            company.getLocales().add(LocaleInfo.of("en", "English description"));
+
+            session.getTransaction().commit();
+        }
+    }
+    @Test
+    void checkManyToMany() {
+        try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
+             Session session = sessionFactory.openSession()) {
+
+            session.beginTransaction();
+
+            User user = session.get(User.class, 4L);
+            Chat chat = session.get(Chat.class, 1L);
+
+            UsersChat usersChat = UsersChat.builder()
+                    .createdAt(Instant.now())
+                    .createdBy(user.getUsername())
+                    .build();
+            usersChat.setUser(user);
+            usersChat.setChat(chat);
+
+            session.persist(usersChat);
+
+//            Chat workChat = Chat.builder()
+//                    .name("workChat")
+//                    .build();
+//            user.addChat(workChat);
+//            session.persist(workChat);
+
+
+            session.getTransaction().commit();
+        }
+    }
+    @Test
+    void checkOneToOne() {
+        try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
+             Session session = sessionFactory.openSession()) {
+
+            session.beginTransaction();
+
+            User user = User.builder()
+                    .username("pavel@gmail.com")
+                    .personalInfo(PersonalInfo.builder()
+                            .firstname("Pavel")
+                            .lastname("Artemyev")
+                            .birthday(new Birthday(LocalDate.of(1997, 1, 1)))
+                            .build())
+                    .role(Role.ADMIN)
+                    .build();
+
+            Profile profile = Profile.builder()
+                    .street("Grunina 6")
+                    .language("ru")
+                    .build();
+            profile.setUser(user);
+
+            session.persist(user);
+
+            session.getTransaction().commit();
+        }
+    }
 
     @Test
     void checkOrhanRemoval() {
@@ -53,7 +139,7 @@ class HibernateRunnerTest {
 
             session.getTransaction().commit();
         }
-        Set<Users> users = company.getUsers();
+        Set<User> users = company.getUsers();
 //        for (Users user: users){
 //            System.out.println(user);
 //        }
@@ -101,7 +187,7 @@ class HibernateRunnerTest {
                     .name("Yandex")
                     .build();
 
-            Users users = Users.builder()
+            User user = User.builder()
                     .username("paul@gmail.com")
                     .personalInfo(PersonalInfo.builder()
                             .firstname("Paul")
@@ -110,7 +196,7 @@ class HibernateRunnerTest {
                             .build())
                     .role(Role.USER)
                     .build();
-            company.addUser(users);
+            company.addUser(user);
 
             session.persist(company);
 
@@ -137,17 +223,17 @@ class HibernateRunnerTest {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = preparedStatement.executeQuery();
 
-        Class<Users> usersClass = Users.class;
-        Constructor<Users> constructor = usersClass.getConstructor();
-        Users users = constructor.newInstance();
+        Class<User> usersClass = User.class;
+        Constructor<User> constructor = usersClass.getConstructor();
+        User user = constructor.newInstance();
         Field declaredField = usersClass.getDeclaredField("id");
         declaredField.setAccessible(true);
-        declaredField.set(users, resultSet.getString(1));
+        declaredField.set(user, resultSet.getString(1));
     }
 
     @Test
     void checkReflectionApi() throws SQLException {
-        Users users = Users.builder()
+        User user = User.builder()
                 .username("pavel@gmail.com")
                 .personalInfo(PersonalInfo.builder()
                         .firstname("Pavel")
@@ -166,17 +252,17 @@ class HibernateRunnerTest {
                     (%s)
                 """;
 
-        String tableName = Optional.ofNullable(users.getClass().getAnnotation(Table.class))
+        String tableName = Optional.ofNullable(user.getClass().getAnnotation(Table.class))
                 .map(tableAnnotation -> tableAnnotation.schema() + "." + tableAnnotation.name())
-                .orElse(users.getClass().getName());
+                .orElse(user.getClass().getName());
 
-        String columnNames = Arrays.stream(users.getClass().getDeclaredFields())
+        String columnNames = Arrays.stream(user.getClass().getDeclaredFields())
                 .map(field -> Optional.ofNullable(field.getAnnotation(Column.class))
                         .map(Column::name)
                         .orElse(field.getName()))
                 .collect(Collectors.joining(", "));
 
-        String columnValues = Arrays.stream(users.getClass().getDeclaredFields())
+        String columnValues = Arrays.stream(user.getClass().getDeclaredFields())
                 .map(field -> "?")
                 .collect(Collectors.joining(", "));
 
@@ -186,11 +272,11 @@ class HibernateRunnerTest {
         PreparedStatement preparedStatement = connection
                 .prepareStatement(sql.formatted(tableName, columnNames, columnValues));
 
-        preparedStatement.setObject(1, users.getUsername());
-        preparedStatement.setObject(2, users.getPersonalInfo().getFirstname());
-        preparedStatement.setObject(3, users.getPersonalInfo().getLastname());
-        preparedStatement.setObject(4, users.getPersonalInfo().getBirthday());
-        preparedStatement.setObject(5, users.getRole());
+        preparedStatement.setObject(1, user.getUsername());
+        preparedStatement.setObject(2, user.getPersonalInfo().getFirstname());
+        preparedStatement.setObject(3, user.getPersonalInfo().getLastname());
+        preparedStatement.setObject(4, user.getPersonalInfo().getBirthday());
+        preparedStatement.setObject(5, user.getRole());
 
         preparedStatement.executeUpdate();
     }
