@@ -2,6 +2,7 @@ package com.artemyev;
 
 import com.artemyev.entity.*;
 
+import com.artemyev.util.HibernateTestUtil;
 import com.artemyev.util.HibernateUtil;
 import jakarta.persistence.Column;
 import jakarta.persistence.Table;
@@ -21,11 +22,50 @@ import java.sql.SQLException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 class HibernateRunnerTest {
+
+    @Test
+    void checkH2() {
+        try (SessionFactory sessionFactory = HibernateTestUtil.buildSessionFactory();
+             Session session = sessionFactory.openSession()) {
+
+            session.beginTransaction();
+
+            Company company = Company.builder()
+                    .name("Yandex")
+                    .build();
+            session.persist(company);
+
+            Programmer programmer = Programmer.builder()
+                    .username("pavelprog@gmail.com")
+                    .language(Language.JAVA)
+                    .company(company)
+                    .build();
+            session.persist(programmer);
+
+            Manager manager = Manager.builder()
+                    .username("ivanmanag@gmail.com")
+                    .projectName("Starter")
+                    .company(company)
+                    .build();
+            session.persist(manager);
+            session.flush();
+
+            session.clear();
+
+            Programmer programmer1 = session.get(Programmer.class, 1L);
+            EntityUser manager1 = session.get(EntityUser.class, 2L);
+            System.out.println(programmer1 + ", " + manager1);
+
+
+            session.getTransaction().commit();
+        }
+    }
 
     @Test
     void getOrderUsers() {
@@ -40,6 +80,7 @@ class HibernateRunnerTest {
             session.getTransaction().commit();
         }
     }
+
     @Test
     void localeInfo() {
         try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
@@ -54,6 +95,7 @@ class HibernateRunnerTest {
             session.getTransaction().commit();
         }
     }
+
     @Test
     void checkManyToMany() {
         try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
@@ -83,6 +125,7 @@ class HibernateRunnerTest {
             session.getTransaction().commit();
         }
     }
+
     @Test
     void checkOneToOne() {
         try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
@@ -125,6 +168,7 @@ class HibernateRunnerTest {
             session.getTransaction().commit();
         }
     }
+
     @Test
     void checkLazyInitialization() {
         Company company = null;
@@ -139,7 +183,7 @@ class HibernateRunnerTest {
 
             session.getTransaction().commit();
         }
-        Set<User> users = company.getUsers();
+        List<User> users = company.getUsers();
 //        for (Users user: users){
 //            System.out.println(user);
 //        }

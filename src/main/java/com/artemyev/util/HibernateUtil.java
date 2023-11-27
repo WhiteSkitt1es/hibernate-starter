@@ -13,6 +13,13 @@ import org.hibernate.cfg.Configuration;
 @UtilityClass
 public class HibernateUtil {
     public static SessionFactory buildSessionFactory() {
+        Configuration configuration = buildConfiguration();
+        configuration.configure();
+
+        return configuration.buildSessionFactory();
+    }
+
+    public static Configuration buildConfiguration() {
         Configuration configuration = new Configuration();
         configuration.setPhysicalNamingStrategy(new CamelCaseToUnderscoresNamingStrategy());
         configuration.addAnnotatedClass(Company.class);
@@ -20,9 +27,7 @@ public class HibernateUtil {
         configuration.addAnnotatedClass(Profile.class);
         configuration.addAnnotatedClass(Chat.class);
         configuration.addAttributeConverter(new BirthdayConverter());
-        configuration.configure();
-
-        return configuration.buildSessionFactory();
+        return configuration;
     }
 
 }

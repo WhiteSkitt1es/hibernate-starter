@@ -14,7 +14,7 @@ import java.time.Instant;
 @Builder
 @Entity
 @Table(name = "users_chat")
-public class UsersChat {
+public class UsersChat{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
