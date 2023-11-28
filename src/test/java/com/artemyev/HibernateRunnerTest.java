@@ -5,10 +5,12 @@ import com.artemyev.entity.*;
 import com.artemyev.util.HibernateTestUtil;
 import com.artemyev.util.HibernateUtil;
 import jakarta.persistence.Column;
+import jakarta.persistence.FlushModeType;
 import jakarta.persistence.Table;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.junit.jupiter.api.Test;
 
 
@@ -28,6 +30,36 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 class HibernateRunnerTest {
+
+    @Test
+    void checkHql() {
+        try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
+             Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+
+//            HQL / JPQL
+//            select u.* from users u where u.firstname = 'Pavel'
+            List<User> list = session.createNamedQuery(
+                            "findUserByName", User.class)
+                    .setParameter("firstname", "Pavel")
+                    .setParameter("name", "Google")
+                    .setFlushMode(FlushModeType.AUTO)
+                    .list();
+            System.out.println(list);
+
+            int countRows = session.createQuery("update User u set u.role = 'ADMIN' where u.id = ?1").setParameter(1, 4L).executeUpdate();
+//            List<User> list = session.createQuery(
+//                            "select u from User u " +
+//                            "join u.company c where u.personalInfo.firstname = :firstname and c.name = :name" +
+//                            " order by u.personalInfo.lastname", User.class)
+//                    .setParameter("firstname", "Pavel")
+//                    .setParameter("name", "Google")
+//                    .list();
+//            System.out.println(list);
+
+            session.getTransaction().commit();
+        }
+    }
 
     @Test
     void checkH2() {
@@ -138,7 +170,7 @@ class HibernateRunnerTest {
                     .personalInfo(PersonalInfo.builder()
                             .firstname("Pavel")
                             .lastname("Artemyev")
-                            .birthday(new Birthday(LocalDate.of(1997, 1, 1)))
+                            .birthday(LocalDate.of(1997, 1, 1))
                             .build())
                     .role(Role.ADMIN)
                     .build();
@@ -236,7 +268,7 @@ class HibernateRunnerTest {
                     .personalInfo(PersonalInfo.builder()
                             .firstname("Paul")
                             .lastname("Artemev")
-                            .birthday(new Birthday(LocalDate.of(1997, 1, 1)))
+                            .birthday(LocalDate.of(1997, 1, 1))
                             .build())
                     .role(Role.USER)
                     .build();
@@ -282,7 +314,7 @@ class HibernateRunnerTest {
                 .personalInfo(PersonalInfo.builder()
                         .firstname("Pavel")
                         .lastname("Artem'yev")
-                        .birthday(new Birthday(LocalDate.of(1997, 1, 1)))
+                        .birthday(LocalDate.of(1997, 1, 1))
                         .build())
                 .role(Role.ADMIN)
                 .build();

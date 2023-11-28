@@ -6,15 +6,18 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@NamedQuery(name = "findUserByName", query = "select u from User u " +
+                                             "join u.company c where u.personalInfo.firstname = :firstname and c.name = :name" +
+                                             " order by u.personalInfo.lastname")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "username")
-@ToString(exclude = {"company", "profile", "usersChats"})
+@ToString(exclude = {"company", "profile", "usersChats", "payments"})
 @Builder
 @Entity
 @Table(name = "users", schema = "public")
-public class User implements Comparable<User>{
+public class User implements Comparable<User>, BaseEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,15 +39,14 @@ public class User implements Comparable<User>{
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @ManyToOne(fetch = FetchType.EAGER /* cascade = {CascadeType.ALL} */)
+    @ManyToOne(fetch = FetchType.LAZY /* cascade = {CascadeType.ALL} */)
     @JoinColumn(name = "company_id")
     private Company company;
 
     @OneToOne(
             mappedBy = "user",
             cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
-            optional = false
+            fetch = FetchType.LAZY
     )
     private Profile profile;
 
@@ -52,9 +54,17 @@ public class User implements Comparable<User>{
     @OneToMany(mappedBy = "user")
     private List<UsersChat> usersChats = new ArrayList<>();
 
+    @Builder.Default
+    @OneToMany(mappedBy = "receiver")
+    private List<Payment> payments = new ArrayList<>();
+
     @Override
     public int compareTo(User o) {
         return username.compareTo(o.username);
+    }
+
+    public String fullName() {
+        return getPersonalInfo().getFirstname() + " " + getPersonalInfo().getLastname();
     }
 
 //    @Builder.Default
