@@ -170,7 +170,7 @@ class HibernateRunnerTest {
                     .personalInfo(PersonalInfo.builder()
                             .firstname("Pavel")
                             .lastname("Artemyev")
-                            .birthday(LocalDate.of(1997, 1, 1))
+                            .birthday(new Birthday(LocalDate.of(1997, 1, 1)))
                             .build())
                     .role(Role.ADMIN)
                     .build();
@@ -268,7 +268,7 @@ class HibernateRunnerTest {
                     .personalInfo(PersonalInfo.builder()
                             .firstname("Paul")
                             .lastname("Artemev")
-                            .birthday(LocalDate.of(1997, 1, 1))
+                            .birthday(new Birthday(LocalDate.of(1997, 1, 1)))
                             .build())
                     .role(Role.USER)
                     .build();
@@ -314,7 +314,7 @@ class HibernateRunnerTest {
                 .personalInfo(PersonalInfo.builder()
                         .firstname("Pavel")
                         .lastname("Artem'yev")
-                        .birthday(LocalDate.of(1997, 1, 1))
+                        .birthday(new Birthday(LocalDate.of(1997, 1, 1)))
                         .build())
                 .role(Role.ADMIN)
                 .build();

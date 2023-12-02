@@ -3,12 +3,18 @@ package com.artemyev;
 import com.artemyev.entity.*;
 //import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import com.artemyev.util.HibernateUtil;
+import com.artemyev.util.TestDataImporter;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.graph.GraphSemantic;
+import org.hibernate.graph.RootGraph;
+import org.hibernate.graph.SubGraph;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 public class HibernateRunner {
@@ -17,32 +23,37 @@ public class HibernateRunner {
 
     public static void main(String[] args) {
 
-        Company company = Company.builder()
-                .name("Google")
-                .build();
+        try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
+             Session session = sessionFactory.openSession();) {
+            session.beginTransaction();
+//            session.enableFetchProfile("withCompanyAndPayments");
 
-        User user = User.builder()
-                .username("pavel@gmail.com")
-                .personalInfo(PersonalInfo.builder()
-                        .firstname("Pavel")
-                        .lastname("Artemyev")
-                        .birthday(LocalDate.of(1997, 1, 1))
-                        .build())
-                .role(Role.ADMIN)
-                .company(company)
-                .build();
+//            Alter annotation @NamedEntityGraph
+            RootGraph<User> userGraph = session.createEntityGraph(User.class);
+            userGraph.addAttributeNodes("company", "payments", "usersChats");
+            SubGraph<UsersChat> usersChatSubGraph = userGraph.addSubgraph("usersChats", UsersChat.class);
+            usersChatSubGraph.addAttributeNodes("chat");
 
+            Map<String, Object> properties = Map.of(
+//                    GraphSemantic.LOAD.getJakartaHintName(), session.getEntityGraph("withCompanyAndChat"));
+                    GraphSemantic.LOAD.getJakartaHintName(), userGraph);
 
-        try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory()) {
-            Session session1 = sessionFactory.openSession();
-            try (session1) {
-                Transaction transaction = session1.beginTransaction();
+//            User user = session.find(User.class, 1L, properties);
+//            System.out.println(user.getPayments().size());
+//            System.out.println(user.getCompany().getName());
 
-                session1.persist(company);
-                session1.persist(user);
+            List<User> users = session.createQuery(
+                            "select u from User u "/* +
+                            "join fetch u.payments " +
+                            "join fetch u.company " +
+                            "where 1 = 1"*/, User.class)
+//                    .setHint(GraphSemantic.LOAD.getJakartaHintName(), session.getEntityGraph("withCompanyAndChat"))
+                    .setHint(GraphSemantic.LOAD.getJakartaHintName(), userGraph)
+                    .list();
+            users.forEach(user -> System.out.println(user.getPayments().size()));
+            users.forEach(user -> System.out.println(user.getCompany().getName()));
 
-                session1.getTransaction().commit();
-            }
+            session.getTransaction().commit();
         }
         //-------------------------------------------------------------------------------------------------
         /**

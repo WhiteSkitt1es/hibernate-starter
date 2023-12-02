@@ -2,10 +2,33 @@ package com.artemyev.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.FetchProfile;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@NamedEntityGraph(name = "withCompanyAndChat",
+        attributeNodes = {
+                @NamedAttributeNode("company"),
+                @NamedAttributeNode("payments"),
+                @NamedAttributeNode(value = "usersChats", subgraph = "chats")
+        },
+        subgraphs = {
+                @NamedSubgraph(name = "chats", attributeNodes = @NamedAttributeNode("chat"))
+        }
+)
+//@FetchProfile(name = "withCompanyAndPayments", fetchOverrides = {
+//        @FetchProfile.FetchOverride(
+//                entity = User.class, association = "company", mode = FetchMode.JOIN
+//        ),
+//        @FetchProfile.FetchOverride(
+//                entity = User.class, association = "payments", mode = FetchMode.JOIN
+//        )
+//})
+// To work with one entity by id (get(), load()) N + 1
 @NamedQuery(name = "findUserByName", query = "select u from User u " +
                                              "join u.company c where u.personalInfo.firstname = :firstname and c.name = :name" +
                                              " order by u.personalInfo.lastname")
@@ -13,7 +36,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "username")
-@ToString(exclude = {"company", "profile", "usersChats", "payments"})
+@ToString(exclude = {"company", /*"profile",*/ "usersChats", "payments"})
 @Builder
 @Entity
 @Table(name = "users", schema = "public")
@@ -43,18 +66,22 @@ public class User implements Comparable<User>, BaseEntity<Long> {
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @OneToOne(
-            mappedBy = "user",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY
-    )
-    private Profile profile;
+//    @OneToOne(
+//            mappedBy = "user",
+//            cascade = CascadeType.ALL,
+//            fetch = FetchType.LAZY
+//    )
+//    private Profile profile;
 
     @Builder.Default
     @OneToMany(mappedBy = "user")
     private List<UsersChat> usersChats = new ArrayList<>();
 
     @Builder.Default
+//    @BatchSize( size = 3)
+//    1 + N -> 1 + 5 -> 1 + 5/3 -> 3
+//    @Fetch(FetchMode.SUBSELECT)
+//    1 + N -> 1 + 1 -> 2
     @OneToMany(mappedBy = "receiver")
     private List<Payment> payments = new ArrayList<>();
 

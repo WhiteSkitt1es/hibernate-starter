@@ -20,6 +20,5 @@ public class PersonalInfo {
     private String firstname;
     private String lastname;
 //    @Convert(converter = BirthdayConverter.class)
-//    private Birthday birthday;
-    private LocalDate birthday;
+    private Birthday birthday;
 }

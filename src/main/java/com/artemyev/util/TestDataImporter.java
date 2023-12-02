@@ -48,11 +48,12 @@ public class TestDataImporter {
         savePayment(session, dianeGreene, 300);
     }
     private Company saveCompany(Session session, String name) {
+        session.beginTransaction();
         Company company = Company.builder()
                 .name(name)
                 .build();
         session.persist(company);
-
+        session.getTransaction().commit();
 
         return company;
     }
@@ -62,6 +63,7 @@ public class TestDataImporter {
                           String lastName,
                           LocalDate birthday,
                           Company company) {
+        session.beginTransaction();
         User user = User.builder()
                 .username(firstName + lastName)
                 .personalInfo(PersonalInfo.builder()
@@ -72,17 +74,18 @@ public class TestDataImporter {
                 .company(company)
                 .build();
         session.persist(user);
-
+        session.getTransaction().commit();
 
         return user;
     }
 
     private void savePayment(Session session, User user, Integer amount) {
+        session.beginTransaction();
         Payment payment = Payment.builder()
                 .receiver(user)
                 .amount(amount)
                 .build();
         session.persist(payment);
-
+        session.getTransaction().commit();
     }
 }
