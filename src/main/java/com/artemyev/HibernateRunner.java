@@ -4,6 +4,8 @@ import com.artemyev.entity.*;
 //import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import com.artemyev.util.HibernateUtil;
 import com.artemyev.util.TestDataImporter;
+import jakarta.persistence.LockModeType;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -21,40 +23,69 @@ public class HibernateRunner {
 
 //    private static final Logger logger = LoggerFactory.getLogger(HibernateRunner.class);
 
+    @Transactional
     public static void main(String[] args) {
-
         try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
-             Session session = sessionFactory.openSession();) {
+            Session session = sessionFactory.openSession()) {
+//            TestDataImporter.importData(sessionFactory);
+//            session.doWork(connection -> System.out.println(connection.getTransactionIsolation()));
+            session.setDefaultReadOnly(true); // Transaction only read
+//            session.setReadOnly(Payment.class, true); // Transaction only read for a specific entity
             session.beginTransaction();
-//            session.enableFetchProfile("withCompanyAndPayments");
+//            session.createNativeQuery("SET TRANSACTION READ ONLY;")
+//                    .executeUpdate(); // Transaction only read in sql level
 
-//            Alter annotation @NamedEntityGraph
-            RootGraph<User> userGraph = session.createEntityGraph(User.class);
-            userGraph.addAttributeNodes("company", "payments", "usersChats");
-            SubGraph<UsersChat> usersChatSubGraph = userGraph.addSubgraph("usersChats", UsersChat.class);
-            usersChatSubGraph.addAttributeNodes("chat");
+//            session.createQuery("select p from Payment p", Payment.class)
+//                    .setLockMode(LockModeType.PESSIMISTIC_FORCE_INCREMENT)
+//                    .setHint("javax.persistence.lock.timeout", 500)
+//                    .setReadOnly(true)
+//                    .list();
 
-            Map<String, Object> properties = Map.of(
-//                    GraphSemantic.LOAD.getJakartaHintName(), session.getEntityGraph("withCompanyAndChat"));
-                    GraphSemantic.LOAD.getJakartaHintName(), userGraph);
-
-//            User user = session.find(User.class, 1L, properties);
-//            System.out.println(user.getPayments().size());
-//            System.out.println(user.getCompany().getName());
-
-            List<User> users = session.createQuery(
-                            "select u from User u "/* +
-                            "join fetch u.payments " +
-                            "join fetch u.company " +
-                            "where 1 = 1"*/, User.class)
-//                    .setHint(GraphSemantic.LOAD.getJakartaHintName(), session.getEntityGraph("withCompanyAndChat"))
-                    .setHint(GraphSemantic.LOAD.getJakartaHintName(), userGraph)
-                    .list();
-            users.forEach(user -> System.out.println(user.getPayments().size()));
-            users.forEach(user -> System.out.println(user.getCompany().getName()));
+            Payment payment = session.find(Payment.class, 1L
+                    /*, LockModeType.PESSIMISTIC_FORCE_INCREMENT // Only with field version
+                    /*, LockModeType.PESSIMISTIC_WRITE
+                    /*, LockModeType.PESSIMISTIC_READ
+                    /*, LockModeType.OPTIMISTIC_FORCE_INCREMENT // Only with field version
+                    /*, LockModeType.OPTIMISTIC*/); // by default
+            payment.setAmount(payment.getAmount() + 10);
 
             session.getTransaction().commit();
         }
+    }
+        //-------------------------------------------------------------------------------------------------
+        // Problem N + 1
+//    try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
+//             Session session = sessionFactory.openSession();) {
+//            session.beginTransaction();
+////            session.enableFetchProfile("withCompanyAndPayments");
+//
+////            Alter annotation @NamedEntityGraph
+//            RootGraph<User> userGraph = session.createEntityGraph(User.class);
+//            userGraph.addAttributeNodes("company", "payments", "usersChats");
+//            SubGraph<UsersChat> usersChatSubGraph = userGraph.addSubgraph("usersChats", UsersChat.class);
+//            usersChatSubGraph.addAttributeNodes("chat");
+//
+//            Map<String, Object> properties = Map.of(
+////                    GraphSemantic.LOAD.getJakartaHintName(), session.getEntityGraph("withCompanyAndChat"));
+//                    GraphSemantic.LOAD.getJakartaHintName(), userGraph);
+//
+////            User user = session.find(User.class, 1L, properties);
+////            System.out.println(user.getPayments().size());
+////            System.out.println(user.getCompany().getName());
+//
+//            List<User> users = session.createQuery(
+//                            "select u from User u "/* +
+//                            "join fetch u.payments " +
+//                            "join fetch u.company " +
+//                            "where 1 = 1"*/, User.class)
+////                    .setHint(GraphSemantic.LOAD.getJakartaHintName(), session.getEntityGraph("withCompanyAndChat"))
+//                    .setHint(GraphSemantic.LOAD.getJakartaHintName(), userGraph)
+//                    .list();
+//            users.forEach(user -> System.out.println(user.getPayments().size()));
+//            users.forEach(user -> System.out.println(user.getCompany().getName()));
+//
+//            session.getTransaction().commit();
+
         //-------------------------------------------------------------------------------------------------
         /**
          *         Configuration configuration = new Configuration();
@@ -135,5 +166,4 @@ public class HibernateRunner {
          *             throw exception;
          *         }
          */
-    }
 }

@@ -4,22 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="99619586-4583-495f-8562-0f214b5fa15a" name="Changes" comment="Fucking Hibernate studied">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/artemyev/util/TestDataImporter.java" afterDir="false" />
+    <list default="true" id="99619586-4583-495f-8562-0f214b5fa15a" name="Changes" comment="Hibernate studied">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/9473e328-ed82-4b86-ad76-3780959f08a6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9473e328-ed82-4b86-ad76-3780959f08a6.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/9473e328-ed82-4b86-ad76-3780959f08a6/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9473e328-ed82-4b86-ad76-3780959f08a6/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/artemyev/HibernateRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/artemyev/HibernateRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/artemyev/entity/PersonalInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/artemyev/entity/PersonalInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/artemyev/entity/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/artemyev/entity/Profile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/artemyev/entity/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/artemyev/entity/Payment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/artemyev/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/artemyev/entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/artemyev/entity/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/artemyev/entity/UserDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/artemyev/entity/UsersChat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/artemyev/entity/UsersChat.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/artemyev/HibernateRunnerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/artemyev/HibernateRunnerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/artemyev/util/TestDataImporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/artemyev/util/TestDataImporter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/#hibernate.cfg.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -253,6 +245,8 @@
       <workItem from="1701176355925" duration="17344000" />
       <workItem from="1701463025352" duration="4118000" />
       <workItem from="1701514305174" duration="5427000" />
+      <workItem from="1701538025352" duration="139000" />
+      <workItem from="1701601669145" duration="7663000" />
     </task>
     <task id="LOCAL-00001" summary="Hibernate studied">
       <option name="closed" value="true" />
@@ -294,7 +288,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701186993130</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Hibernate studied">
+      <option name="closed" value="true" />
+      <created>1701538043787</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1701538043787</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -312,9 +314,9 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Hibernate studied" />
     <MESSAGE value="Fucking Hibernate studied" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fucking Hibernate studied" />
+    <MESSAGE value="Hibernate studied" />
+    <option name="LAST_COMMIT_MESSAGE" value="Hibernate studied" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -322,6 +324,10 @@
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.lang.UnsupportedOperationException" package="java.lang" />
           <option name="timeStamp" value="1" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="org.hibernate.HibernateException" package="org.hibernate" />
+          <option name="timeStamp" value="2" />
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>

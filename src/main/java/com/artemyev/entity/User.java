@@ -10,16 +10,16 @@ import org.hibernate.annotations.FetchProfile;
 import java.util.ArrayList;
 import java.util.List;
 
-@NamedEntityGraph(name = "withCompanyAndChat",
-        attributeNodes = {
-                @NamedAttributeNode("company"),
-                @NamedAttributeNode("payments"),
-                @NamedAttributeNode(value = "usersChats", subgraph = "chats")
-        },
-        subgraphs = {
-                @NamedSubgraph(name = "chats", attributeNodes = @NamedAttributeNode("chat"))
-        }
-)
+//@NamedEntityGraph(name = "withCompanyAndChat",
+//        attributeNodes = {
+//                @NamedAttributeNode("company"),
+//                @NamedAttributeNode("payments"),
+//                @NamedAttributeNode(value = "usersChats", subgraph = "chats")
+//        },
+//        subgraphs = {
+//                @NamedSubgraph(name = "chats", attributeNodes = @NamedAttributeNode("chat"))
+//        }
+//)
 //@FetchProfile(name = "withCompanyAndPayments", fetchOverrides = {
 //        @FetchProfile.FetchOverride(
 //                entity = User.class, association = "company", mode = FetchMode.JOIN
@@ -29,9 +29,9 @@ import java.util.List;
 //        )
 //})
 // To work with one entity by id (get(), load()) N + 1
-@NamedQuery(name = "findUserByName", query = "select u from User u " +
-                                             "join u.company c where u.personalInfo.firstname = :firstname and c.name = :name" +
-                                             " order by u.personalInfo.lastname")
+//@NamedQuery(name = "findUserByName", query = "select u from User u " +
+//                                             "join u.company c where u.personalInfo.firstname = :firstname and c.name = :name" +
+//                                             " order by u.personalInfo.lastname")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
