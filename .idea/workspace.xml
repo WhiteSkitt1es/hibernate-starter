@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="99619586-4583-495f-8562-0f214b5fa15a" name="Changes" comment="Hibernate studied">
+    <list default="true" id="99619586-4583-495f-8562-0f214b5fa15a" name="Changes" comment="Hibernate studied completed">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/9473e328-ed82-4b86-ad76-3780959f08a6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9473e328-ed82-4b86-ad76-3780959f08a6.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/9473e328-ed82-4b86-ad76-3780959f08a6/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9473e328-ed82-4b86-ad76-3780959f08a6/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -247,6 +248,28 @@
       <workItem from="1701679960342" duration="724000" />
       <workItem from="1701680715806" duration="996000" />
       <workItem from="1701683996932" duration="8000" />
+      <workItem from="1701684033234" duration="361000" />
+      <workItem from="1701764867668" duration="7000" />
+      <workItem from="1701811837597" duration="393000" />
+      <workItem from="1701854272743" duration="2437000" />
+      <workItem from="1702155316881" duration="44000" />
+      <workItem from="1702197578410" duration="6000" />
+      <workItem from="1702379228320" duration="107000" />
+      <workItem from="1702388431891" duration="3000" />
+      <workItem from="1702389279094" duration="957000" />
+      <workItem from="1702635124489" duration="45000" />
+      <workItem from="1702644076777" duration="17000" />
+      <workItem from="1702716004239" duration="28000" />
+      <workItem from="1702827554817" duration="239000" />
+      <workItem from="1702886134292" duration="27000" />
+      <workItem from="1704805039972" duration="1050000" />
+      <workItem from="1704811548657" duration="66000" />
+      <workItem from="1704811999133" duration="126000" />
+      <workItem from="1704816982974" duration="183000" />
+      <workItem from="1704818639602" duration="257000" />
+      <workItem from="1704888955330" duration="131000" />
+      <workItem from="1704919000553" duration="440000" />
+      <workItem from="1705002850930" duration="29000" />
     </task>
     <task id="LOCAL-00001" summary="Hibernate studied">
       <option name="closed" value="true" />
@@ -304,7 +327,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701615450167</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Hibernate studied completed">
+      <option name="closed" value="true" />
+      <created>1701684061710</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1701684061710</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -324,7 +355,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Fucking Hibernate studied" />
     <MESSAGE value="Hibernate studied" />
-    <option name="LAST_COMMIT_MESSAGE" value="Hibernate studied" />
+    <MESSAGE value="Hibernate studied completed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Hibernate studied completed" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
